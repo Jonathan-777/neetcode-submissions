@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numDecodings(string s) {
+        int dp = 0, dp2 = 0;
+        int dp1 = 1;
+        for (int i = s.size() - 1; i >= 0; i--) {
+            if (s[i] == '0') {
+                dp = 0;  // if we see a 0 at first the whole thing is 0. 
+            } else {
+                dp = dp1;
+                if ((i < s.size() - 1 && s[i] == '1' || (s[i] == '2' && s[i + 1] < '7'))) { // only allows valid number range 1-26
+
+                    dp += dp2;
+                }
+            }
+            dp2 = dp1;
+            dp1 = dp;
+            dp = 0;
+        }
+        return dp1;
+    }
+};
